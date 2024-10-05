@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bildirim Sistemi</title>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+    <h1>Bildirim Sistemi</h1>
+    <div id="notifications"></div>
+
+    <script>
+        const socket = io();
+
+
+        socket.on('notification', (data) => {
+            const notificationsDiv = document.getElementById('notifications');
+            const notification = document.createElement('div');
+            notification.textContent = `Yeni bildirim: ${data.message}`;
+            notificationsDiv.appendChild(notification);
+        });
+
+        socket.emit('sendNotification', { message: 'Merhaba, bu bir bildirim!' });
+    </script>
+</body>
+
+</html>
